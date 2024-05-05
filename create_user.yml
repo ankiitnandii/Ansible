@@ -1,0 +1,23 @@
+---
+- name: 'Creating Users'
+  hosts: all
+  become: true
+  remote_user: ubuntu
+  vars_files:
+    - secrets.yml
+  tasks:
+   - name: Create users
+     become: true
+     user:
+       name: "{{username}}"
+       password: "{{pwhash}}"
+       create_home: true
+
+   - name: Ensure permissions are recursively applied
+     file:
+        path: /home/Ankit   # Specify the directory path
+        state: directory
+        recurse: yes
+        owner: Ankit          # Specify the owner of the directory
+        group: Ankit          # Specify the group of the directory
+        mode: "0777"

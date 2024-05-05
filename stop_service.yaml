@@ -1,0 +1,13 @@
+---
+- name: Install nginx
+  hosts: web01
+  tasks:
+   - name: stop mysql
+     service:
+          name: mysql-server
+          state: stopped
+
+   - name: uninstall mysql
+     apt:
+       name: mysql
+       state: absent

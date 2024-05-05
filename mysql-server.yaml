@@ -1,0 +1,23 @@
+---
+- name: Install mysql
+  hosts: db01
+  tasks:
+    - name: Install mysql
+      apt:
+        name: mysql-server
+        state: present
+        update_cache: true
+    - name: Install pip
+      apt:
+        name: pip
+        state: present
+        update_cache: true
+
+    - name: Install firewall Python library
+      pip:
+        name: firewall
+
+    - name: Open port 3306
+      ansible.posix.firewalld:
+       port: 3036/tcp
+       state: enabled
